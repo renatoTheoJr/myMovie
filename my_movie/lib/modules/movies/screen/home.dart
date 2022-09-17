@@ -25,7 +25,7 @@ class _FirstPageState extends State<FirstPage> {
     return MaterialApp(
       title: 'Fetch Data Example',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -40,6 +40,7 @@ class _FirstPageState extends State<FirstPage> {
                 Widget comp;
                 var listData = data.map((movie) {
                   comp = MovieComponent(
+                      id: movie.id,
                       title: movie.title,
                       voteAverage: movie.voteAverage,
                       urlImage: movie.image);
@@ -50,7 +51,7 @@ class _FirstPageState extends State<FirstPage> {
 
                 for (int i = 0; i < listData.length; i++) {
                   rows.add(listData[i]);
-                  if ((i + 1) % 3 == 0) {
+                  if ((i + 1) % 2 == 0) {
                     collumns.add(Row(
                       children: [...rows],
                     ));
@@ -62,14 +63,27 @@ class _FirstPageState extends State<FirstPage> {
                     children: [...rows],
                   ));
                 }
-
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(children: [...collumns]));
-                  },
-                );
+                return CustomScrollView(slivers: <Widget>[
+                  const SliverAppBar(
+                    pinned: true,
+                    expandedHeight: 100.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: Text('MyMovies'),
+                    ),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return Container(
+                            alignment: Alignment.center,
+                            //color: Colors.blue[200 + top[index] % 4 * 100],
+                            // height: 100 + * 20.0,
+                            child: collumns[index]);
+                      },
+                      childCount: collumns.length,
+                    ),
+                  )
+                ]);
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }

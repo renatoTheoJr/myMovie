@@ -30,8 +30,10 @@ class MovieRepository implements IMovieRepository {
   }
 
   @override
-  Future<Movie> getOne(int id) {
-    // TODO: implement getOne
-    throw UnimplementedError();
+  Future<Movie> getOne(int id) async {
+    var response = await request.getMovie(id);
+    Movie mv = Movie.fromJson(response.data);
+    //print("teste" + mv.id.toString());
+    return mv;
   }
 }
