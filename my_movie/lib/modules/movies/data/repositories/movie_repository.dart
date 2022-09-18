@@ -36,4 +36,16 @@ class MovieRepository implements IMovieRepository {
     //print("teste" + mv.id.toString());
     return mv;
   }
+
+  @override
+  Future<List<Movie>> selectByGenre(String? genre) async {
+    if (genre == "Filtrar por gênero" || genre == "All") return _repositories;
+    List<Movie> newRep = [];
+    _repositories.map((movie) {
+      if (movie.genres.contains(genre)) {
+        newRep.add(movie);
+      }
+    }).toList();
+    return newRep;
+  }
 }

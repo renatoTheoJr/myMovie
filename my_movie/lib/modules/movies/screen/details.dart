@@ -29,8 +29,8 @@ class _DetailsState extends State<Details> {
     return MaterialApp(
         title: widget.title,
         theme: ThemeData(
-          primarySwatch: Colors.purple,
-        ),
+            primarySwatch: Colors.purple,
+            scaffoldBackgroundColor: const Color.fromRGBO(61, 28, 81, 1)),
         home: Scaffold(
             appBar: AppBar(
               title: Text(widget.title),
@@ -47,34 +47,34 @@ class _DetailsState extends State<Details> {
                               margin: const EdgeInsets.only(
                                   left: 20.0, bottom: 10.0),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color.fromRGBO(217, 217, 217, 0.9),
-                                boxShadow: [
-                                  const BoxShadow(
-                                    color: const Color.fromRGBO(0, 0, 0, 0.5),
-                                    spreadRadius: 1,
-                                  ),
-                                ],
-                              ),
-                              child: Text(genres));
+                                  borderRadius: BorderRadius.circular(10),
+                                  color:
+                                      const Color.fromRGBO(217, 217, 217, 0.1),
+                                  border: Border.all(
+                                      color:
+                                          const Color.fromRGBO(0, 0, 0, 0.5))),
+                              child: Text(genres,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)));
                         }).toList();
                         return CustomScrollView(
                           scrollDirection: Axis.horizontal,
                           primary: false,
                           slivers: <Widget>[
                             SliverPadding(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(7),
                               sliver: SliverGrid.count(
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
                                 crossAxisCount: 2,
                                 children: <Widget>[
                                   Container(
-                                      padding: const EdgeInsets.all(4),
+                                      padding: const EdgeInsets.all(1),
+                                      margin: const EdgeInsets.all(2),
                                       child: Column(children: <Widget>[
                                         FadeInImage(
-                                          height: 300,
-                                          width: 300,
+                                          height: 280,
+                                          width: 280,
                                           image: NetworkImage(data.image),
                                           placeholder: const AssetImage(
                                               "assets/images/noMovie.png"),
@@ -84,8 +84,16 @@ class _DetailsState extends State<Details> {
                                                 'assets/images/noMovie.png');
                                           },
                                         ),
-                                        Text("Lançado em " + data.releaseDate),
-                                        Text(data.runTime.toString() + " min")
+                                        Text("Lançado em ${data.releaseDate}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromRGBO(
+                                                    255, 255, 255, 0.5))),
+                                        Text("${data.runTime.toString()} min",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromRGBO(
+                                                    255, 255, 255, 0.5)))
                                       ])),
                                   Container(
                                       padding: const EdgeInsets.all(4),
@@ -97,14 +105,26 @@ class _DetailsState extends State<Details> {
                                           ],
                                         ),
                                         Container(
-                                            margin: const EdgeInsets.only(
-                                                bottom: 20.0),
-                                            child: Text(data.overview!)),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 20.0),
+                                          child: Text(
+                                            data.overview!,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "Roboto",
+                                                fontSize: 17.0),
+                                          ),
+                                        ),
                                         Row(
                                           children: <Widget>[
-                                            Icon(Icons.star),
-                                            Text(data.voteAverage.toString() +
-                                                "/10")
+                                            const Icon(Icons.star,
+                                                color: Colors.yellow),
+                                            Text(
+                                                "${data.voteAverage.toString()}/10",
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ))
                                           ],
                                         )
                                       ])),

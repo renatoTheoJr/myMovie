@@ -22,14 +22,31 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> allGenres = <String>[
+      "Filtrar por gênero",
+      "All",
+      "Comedy",
+      "Drama",
+      "Romance",
+      "Crime",
+      "Animation",
+      "History",
+      "War",
+      "Family",
+      "Fantasy",
+      "Thriller",
+      "Horror"
+    ];
+    String dropdownValue = allGenres.first;
+
     return MaterialApp(
-      title: 'Fetch Data Example',
+      title: 'List Movies',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Fetch Data Example'),
+          title: const Text('MyMovies'),
         ),
         body: Center(
           child: FutureBuilder<List<Movie>>(
@@ -48,7 +65,30 @@ class _FirstPageState extends State<FirstPage> {
                 }).toList();
                 List<Widget> collumns = [];
                 List<Widget> rows = [];
-
+                collumns.add(DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      futureMovies = movieRepository.selectByGenre(value);
+                      dropdownValue = value!;
+                    });
+                  },
+                  items:
+                      allGenres.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ));
                 for (int i = 0; i < listData.length; i++) {
                   rows.add(listData[i]);
                   if ((i + 1) % 2 == 0) {
@@ -85,7 +125,7 @@ class _FirstPageState extends State<FirstPage> {
                   )
                 ]);
               } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
+                return const Text('Houve um erro ao carregar as informações');
               }
 
               // By default, show a loading spinner.
