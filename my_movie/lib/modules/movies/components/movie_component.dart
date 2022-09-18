@@ -38,8 +38,8 @@ class MovieComponent extends StatelessWidget {
           ),
           Positioned(
               //positioned helps to position widget wherever we want.
-              top: 10,
-              right: 50, //position of the widget
+              top: 12,
+              left: 40, //position of the widget
               child: Container(
                   height: 15,
                   width: 20,
@@ -49,11 +49,12 @@ class MovieComponent extends StatelessWidget {
                           .withOpacity(0.7) //background color with opacity
                       ))),
           Positioned(
-            top: 10,
-            right: 50,
+            top: 12,
+            left: 40,
             width: 20,
             child: Text(voteAverage.toString(),
-                style: const TextStyle(fontSize: 10),
+                style:
+                    const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center),
           ),
         ],
@@ -62,11 +63,13 @@ class MovieComponent extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-              constraints: BoxConstraints(minWidth: 100, maxWidth: 150),
-              padding: EdgeInsets.all(8),
+              constraints: const BoxConstraints(minWidth: 100, maxWidth: 150),
+              padding: const EdgeInsets.all(2),
+              margin: const EdgeInsets.only(bottom: 30),
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: Text(title))
+              child: Text(title,
+                  style: const TextStyle(fontWeight: FontWeight.bold)))
         ],
       )
     ]);
